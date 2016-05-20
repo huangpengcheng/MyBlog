@@ -1,0 +1,76 @@
+{%extends "base.html"%}
+{%block content%}
+<div class="row">
+    <div class="col-lg-9">
+        <div class="panel panel-default">
+              <div class="panel-heading">
+                  <a href="{% url 'create_article' %}" class="btn btn-success btn-xs pull-right">
+                  <i class="glyphicon glyphicon-plus"></i>
+                  新建博客
+                  </a>
+              文章列表：
+              </div>
+             
+            <ul class="list-group">
+                    {% for i in article %}
+                         <li class="list-group-item"><span class="pull-right">{{i.pub_date}}</span>
+                         <a href="/article_content/{{i.id}}"> {{ i.title }} </a>
+                         </li>
+                    {% endfor %}
+            </ul> 
+              
+        </div>           
+    </div>
+    <div class="col-lg-3">
+        <div class="panel panel-default">
+            <div class="panel-heading"><i class = " glyphicon glyphicon-th-list"></i>
+            分类
+            </div>
+            <div class="panel-body">
+              {% for gen in genres %}
+                <a class="label label-default" href="{% url 'show_genre' gen.id %}">{{gen.name}}</a>
+              {%endfor%}
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><i class = "glyphicon glyphicon-star-empty"></i>
+            标签
+            </div>
+            <div class="panel-body">
+              {% for tag in tags %}
+                <a class="label label-default" href="{% url 'show_tag' tag.id %}">{{tag.name}}</a>
+              {%endfor%}
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading"><i class = "glyphicon glyphicon-user"></i>
+            最近评论
+            </div>
+            <div class="panel-body">
+                <!-- 多说最新评论 start -->
+                    <div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
+                <!-- 多说最新评论 end -->
+                <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                <script type="text/javascript">
+                var duoshuoQuery = {short_name:"huangpengcheng"};
+                    (function() {
+                        var ds = document.createElement('script');
+                        ds.type = 'text/javascript';ds.async = true;
+                        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                        ds.charset = 'UTF-8';
+                        (document.getElementsByTagName('head')[0] 
+                         || document.getElementsByTagName('body')[0]).appendChild(ds);
+                    })();
+                    </script>
+                <!-- 多说公共JS代码 end -->
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+{%endblock%}        
